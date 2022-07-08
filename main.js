@@ -87,10 +87,10 @@ const resetMousePosition = mousePosition => {
 }
 
 const init = () => {
-  const mousePosition = {}
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d')
   const circles = generateCircles(OBJECTS_AMOUNT, COLORS, MAX_RADIUS)
+  const mousePosition = {}
 
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
