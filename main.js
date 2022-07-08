@@ -1,4 +1,9 @@
 import './style.css'
+import { 
+  COLORS,
+  MAX_RADIUS,
+  OBJECTS_AMOUNT
+} from './constants'
 
 class Circle {
   constructor(x, y, dx, dy, radius, maxRadius, colors ) {
@@ -60,7 +65,7 @@ const animate = (objects, mousePosition, ctx) => {
   requestAnimationFrame(() => animate(objects, mousePosition, ctx))
 }
 
-const generateCircles = (amount, colors) => {
+const generateCircles = (amount, colors, maxRadius) => {
   const objects = []
 
   for (var i = 0; i < amount; i++) {
@@ -70,7 +75,7 @@ const generateCircles = (amount, colors) => {
     const dx = (Math.random() - 0.5) 
     const dy = (Math.random() - 0.5) 
 
-    objects.push(new Circle(x, y, dx, dy, radius, 40, colors))
+    objects.push(new Circle(x, y, dx, dy, radius, maxRadius, colors))
   }
 
   return objects
@@ -83,12 +88,17 @@ const resetMousePosition = mousePosition => {
 
 const init = () => {
   const mousePosition = {}
-  const colors = [ '#ffaa33 ', '#99ffaa', '#00ff00', '#4411aa', '#ff1100' ]
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d')
+  const circles = generateCircles(OBJECTS_AMOUNT, COLORS, MAX_RADIUS)
 
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
+
+  window.addEventListener('resize', function() {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+  })
 
   window.addEventListener('mousemove', function(event) {
     mousePosition.x = event.x
@@ -99,15 +109,8 @@ const init = () => {
     resetMousePosition(mousePosition)
   })
 
-  window.addEventListener('resize', function() {
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-  })
-
-  const circles = generateCircles(400, colors )
 
   animate(circles, mousePosition, ctx)
 }
-
 
 init()
