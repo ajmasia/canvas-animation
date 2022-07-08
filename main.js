@@ -109,7 +109,6 @@ const init = () => {
     resetMousePosition(mousePosition)
   })
 
-
   animate(circles, mousePosition, ctx)
 }
 
